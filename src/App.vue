@@ -17,7 +17,6 @@ function getPathFromUrl() {
     return [];
   }
   const segments = pathString.split("/").map((part) => part.trim()).filter(Boolean);
-  console.log({segments});
   return segments;
 }
 
@@ -75,6 +74,14 @@ function handleFolderNavigate(path, pushToHistory = true) {
   }
 }
 
+function handlePopState() {
+  if (!routeMode.value || !data.value) {
+    return;
+  }
+  const pathFromUrl = getPathFromUrl();
+  currentPath.value = isPathValid(data.value, pathFromUrl) ? pathFromUrl : [];
+}
+
 async function loadTreeData() {
   try {
     isLoading.value = true;
@@ -109,9 +116,11 @@ watch(routeMode, (routingEnabled) => {
 
 onMounted(async () => {
   await loadTreeData();
+  window.addEventListener("popstate", handlePopState);
 });
 
 onBeforeUnmount(() => {
+  window.removeEventListener("popstate", handlePopState);
 });
 </script>
 

@@ -86,7 +86,6 @@ const nodesVisibleInTree = computed(() => {
     const allAncestorsExpanded = item.ancestorFolderKeys.every((key) =>
       expandedFolders.value.has(key)
     );
-    console.log({allAncestorsExpanded});
     return allAncestorsExpanded;
   });
 });
