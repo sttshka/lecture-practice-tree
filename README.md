@@ -1,1 +1,2 @@
-# Empty main branch
+# Демонстрация file-viewer`а
+## Реализация на Vue 3, сборка с помощью Vite
